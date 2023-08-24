@@ -1,5 +1,13 @@
 package com.example.demo.repository;
 
-public interface IVehiculoRepository {
 
+import com.example.demo.repository.modelo.Vehiculo;
+
+public interface IVehiculoRepository {
+	public void insertar(Vehiculo vehiculo);
+	public Vehiculo seleccionarPorId(Integer id);
+	public void actualizar(Vehiculo vehiculo);
+	public void eliminar(Integer id);
+	
+	public Vehiculo seleccionarPorPlaca(String placa);
 }
