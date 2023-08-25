@@ -39,6 +39,8 @@ public class Vehiculo {
 	private BigDecimal avaluo;
 	@Column(name = "vhcl_valor_por_dia")
 	private BigDecimal valorPorDia;
+	@Column(name = "vhcl_estado")
+	private String estado;
 	
 	@OneToMany(mappedBy = "vehiculo")
 	private List<Reserva> resevas;
@@ -46,6 +48,14 @@ public class Vehiculo {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public void setId(Integer id) {
@@ -123,6 +133,15 @@ public class Vehiculo {
 	public void setResevas(List<Reserva> resevas) {
 		this.resevas = resevas;
 	}
+
+	@Override
+	public String toString() {
+		return "Vehiculo [placa=" + placa + ", modelo=" + modelo + ", marca=" + marca + ", valorPorDia=" + valorPorDia
+				+ ", estado=" + estado + "]";
+	}
+
+	
+	
 	
 	
 }

@@ -1,9 +1,9 @@
 package com.example.demo.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.repository.modelo.Cliente;
 import com.example.demo.repository.modelo.Vehiculo;
 
 import jakarta.persistence.EntityManager;
@@ -48,6 +48,14 @@ public class VehiculoRepositoryImpl implements IVehiculoRepository{
 		TypedQuery<Vehiculo> query =this.entityManager.createQuery("Select v From Vehiculo v Where v.placa=:DatoPlaca", Vehiculo.class);
 		query.setParameter("DatoPlaca", placa);
 		return query.getSingleResult();
+	}
+
+	@Override
+	public List<Vehiculo> seleccionarPorMarcaModelo(String marca, String modelo) {
+		TypedQuery<Vehiculo> query = this.entityManager.createQuery("Select v From Vehiculo v Where v.marca=:DatoMarca AND v.modelo=:DatoModelo", Vehiculo.class);
+		query.setParameter("DatoMarca", marca);
+		query.setParameter("DatoModelo", modelo);
+		return  query.getResultList();
 	}
 
 }

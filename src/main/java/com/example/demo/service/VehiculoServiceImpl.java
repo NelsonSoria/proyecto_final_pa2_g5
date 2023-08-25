@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,12 @@ public class VehiculoServiceImpl implements IVehiculoService{
 	@Transactional(value = TxType.REQUIRED)
 	public void borrar(Integer id) {
 		this.iVehiculoRepository.eliminar(id);
+	}
+
+	@Override
+	public List<Vehiculo> buscarPorMarcaModelo(String marca, String modelo) {
+		// TODO Auto-generated method stub
+		return this.iVehiculoRepository.seleccionarPorMarcaModelo(marca, modelo);
 	}
 
 }

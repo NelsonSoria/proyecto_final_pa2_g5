@@ -22,6 +22,9 @@ public class Cliente {
 	@Column(name="clie_id")
 	private Integer id;
 	
+	@Column(name="clie_cedula")
+	private String cedula;
+	
 	@Column(name="clie_nombre")
 	private String nombre;
 	
@@ -39,6 +42,16 @@ public class Cliente {
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Reserva> resevas;
+
+	
+	
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
 
 	public Integer getId() {
 		return id;
