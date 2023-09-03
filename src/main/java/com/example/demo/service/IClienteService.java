@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.repository.modelo.Cliente;
 
 public interface IClienteService {
@@ -8,5 +10,6 @@ public interface IClienteService {
 	public Cliente buscarPorId(Integer id);
 	public void actualizar(Cliente cliente);
 	public void borrar(Integer id);
+    public List<Cliente> buscarTodos();
 
 }

@@ -28,6 +28,7 @@ public class ClienteController {
 			c.setApellido(cliente.getApellido());
 			c.setFechaNacimiento(cliente.getFechaNacimiento());
 			c.setGenero(cliente.getGenero());
+			
 			this.clienteService.guardarCliente(c);
 			return "redirect:/paginas/cliente";
 		} catch (Exception e) {

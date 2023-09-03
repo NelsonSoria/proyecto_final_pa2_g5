@@ -1,31 +1,37 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.repository.modelo.Cliente;
+
 @Controller
-@RequestMapping("/paginas")
+
 public class GestorPaginaslController {
 
 	// http://localhost:8080/concesionario/paginas/principal
 	
-	@GetMapping("/principal")
+	
+	@GetMapping("/paginas/principal")
 	public String paginaPrincipal() {
 		return "vistaPaginaPrincipal";
 	}
 	
-	@GetMapping("/cliente")
+	@GetMapping("/paginas/cliente")
 	public String paginaCliente() {
 		return "vistaClientePrincipal";
 	}
 	
-	@GetMapping("/empleado")
+	@GetMapping("/paginas/empleado")
 	public String paginaEmpleado() {
-		return "vistaEmpleadoPrincipal";
+		
+		return "redirect:../empleados/principal";
 	}
 	
-	@GetMapping("/reporte")
+	@GetMapping("/paginas/reporte")
 	public String paginaReporte() {
 		return "vistaReportePrincipal";
 	}

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,12 @@ public class ClienteServiceImpl implements IClienteService{
 		cliente.setRegistro('E');
 		this.clienteRepository.insertar(cliente);
 		
+	}
+
+	@Override
+	public List<Cliente> buscarTodos() {
+		// TODO Auto-generated method stub
+		return this.clienteRepository.seleccionarTodos();
 	}
 
 }

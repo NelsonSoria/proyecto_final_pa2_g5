@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.modelo.Cliente;
@@ -50,6 +52,12 @@ public class ClienteRepositoryImpl implements iClienteRepository{
 		TypedQuery<Cliente> query =this.entityManager.createQuery("Select c From Cliente c Where c.cedula=:DatoCedula", Cliente.class);
 		query.setParameter("DatoCedula", cedula);
 		return query.getSingleResult();
+	}
+
+	@Override
+	public List<Cliente> seleccionarTodos() {
+		TypedQuery<Cliente> query =this.entityManager.createQuery("Select c From Cliente c ", Cliente.class);
+		return query.getResultList();
 	}
 
 }
