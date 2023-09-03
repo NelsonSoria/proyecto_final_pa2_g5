@@ -16,6 +16,9 @@ import com.example.demo.repository.iClienteRepository;
 import com.example.demo.repository.modelo.Cliente;
 import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
+import com.example.demo.repository.modelo.dto.ClienteVipDTO;
+import com.example.demo.repository.modelo.dto.ReservaDTO;
+import com.example.demo.repository.modelo.dto.VehiculoVipDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.transaction.Transactional;
@@ -34,18 +37,21 @@ public class ReservaServiceImpl implements IReservaService {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public void reservarVehiculo(String placa, String cedula, LocalDate fechaInicio, LocalDate fechaFin,String numeroTarjeta) {
-		
-		BigDecimal[] valores=calcularValores(placa, fechaInicio, fechaFin);
-		Cliente cliente=this.clienteRepository.seleccionarPorCedula(cedula);
-		Vehiculo vehiculo=this.iVehiculoRepository.seleccionarPorPlaca(placa);
-		
-		Reserva reserva= new Reserva();
+	public void reservarVehiculo(String placa, String cedula, LocalDate fechaInicio, LocalDate fechaFin,
+			String numeroTarjeta) {
+
+		BigDecimal[] valores = calcularValores(placa, fechaInicio, fechaFin);
+		Cliente cliente = this.clienteRepository.seleccionarPorCedula(cedula);
+		Vehiculo vehiculo = this.iVehiculoRepository.seleccionarPorPlaca(placa);
+
+		Reserva reserva = new Reserva();
 		Random rand = new Random();
-        int randomNumero = rand.nextInt(1000) + 1;
+		int randomNumero = rand.nextInt(1000) + 1;
+
 		reserva.setNumeroReserva(Integer.toString(randomNumero));
 		reserva.setFechaInicio(fechaInicio);
 		reserva.setFechaFin(fechaFin);
+		reserva.setFechaCobro(LocalDate.now());
 		reserva.setEstado("Generada");
 		reserva.setValorSubtotal(valores[0]);
 		reserva.setValorICE(valores[1]);
@@ -53,7 +59,7 @@ public class ReservaServiceImpl implements IReservaService {
 		reserva.setNumeroTarjetaCredito(numeroTarjeta);
 		reserva.setCliente(cliente);
 		reserva.setVehiculo(vehiculo);
-		
+
 		this.iReservaRepository.insertar(reserva);
 	}
 
@@ -61,33 +67,34 @@ public class ReservaServiceImpl implements IReservaService {
 	@Transactional(value = TxType.REQUIRED)
 	public boolean verificarDisponibilidad(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
 		boolean aux = false;
-		System.err.println(placa);
+
 		List<Reserva> lista = this.iReservaRepository.seleccionarListaPorPlacaV(placa);
+		System.out.println(lista.size());
+		if (lista.size() != 0) {
+			for (Reserva r : lista) {
+				LocalDate fechaInicioRango1 = r.getFechaInicio();
+				LocalDate fechaFinRango1 = r.getFechaFin();
+				
+				// Definir el rango de fechas 2
+				LocalDate fechaInicioRango2 = fechaInicio;
+				LocalDate fechaFinRango2 = fechaFin;
 
-		for (Reserva r : lista) {
-			// Definir el rango de fechas 1
-			LocalDate fechaInicioRango1 = r.getFechaInicio();
-			LocalDate fechaFinRango1 = r.getFechaFin();
-			System.err.println(fechaInicioRango1);
-			System.err.println(fechaFinRango1);
-			// Definir el rango de fechas 2
-			LocalDate fechaInicioRango2 = fechaInicio;
-			LocalDate fechaFinRango2 = fechaFin;
-
-			// Verificar si el rango de fechas 2 está dentro del rango de fechas 1
-			boolean estaDentro = !(fechaFinRango2.isBefore(fechaInicioRango1)
-					|| fechaInicioRango2.isAfter(fechaFinRango1));
-			if (estaDentro) {
-				System.out.println("El rango de fechas 2 está completamente dentro del rango de fechas 1.");
-				aux = false;
-				break;
-			} else {
-				System.out.println("El rango de fechas 2 NO está dentro del rango de fechas 1.");
-				aux = true;
+				// Verificar si el rango de fechas 2 está dentro del rango de fechas 1
+				boolean estaDentro = !(fechaFinRango2.isBefore(fechaInicioRango1)
+						|| fechaInicioRango2.isAfter(fechaFinRango1));
+				if (estaDentro) {
+					//"El rango de fechas 2 está completamente dentro del rango de fechas 1.
+					aux = false;
+					break;
+				} else {
+					//"El rango de fechas 2 NO está dentro del rango de fechas 1.
+					aux = true;
+				}
 			}
+		} else {
+			aux = true;
 		}
 		return aux;
-
 	}
 
 	@Override
@@ -109,14 +116,14 @@ public class ReservaServiceImpl implements IReservaService {
 
 	@Override
 	public BigDecimal valorTotalAPagar(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
-		
-		BigDecimal[] valores=calcularValores(placa, fechaInicio, fechaFin);
+
+		BigDecimal[] valores = calcularValores(placa, fechaInicio, fechaFin);
 		BigDecimal valorTotal = valores[2];
 		return valorTotal;
 	}
 
 	// Metodo para que guarde los calulos en un arreglo
-	
+
 	public BigDecimal[] calcularValores(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
 		Vehiculo vehiculo = this.iVehiculoRepository.seleccionarPorPlaca(placa);
 		long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
@@ -126,10 +133,25 @@ public class ReservaServiceImpl implements IReservaService {
 		BigDecimal valorTotal = valorSubTotal.add(valorICE);
 
 		// Redondear a dos decimales
-		BigDecimal valorSubTotalRedondear=valorSubTotal.setScale(2, RoundingMode.HALF_UP);
-		BigDecimal valorICERedondear=	valorICE.setScale(2, RoundingMode.HALF_UP);	
+		BigDecimal valorSubTotalRedondear = valorSubTotal.setScale(2, RoundingMode.HALF_UP);
+		BigDecimal valorICERedondear = valorICE.setScale(2, RoundingMode.HALF_UP);
 		BigDecimal valorTotalRedondear = valorTotal.setScale(2, RoundingMode.HALF_UP);
 		BigDecimal[] valores = { valorSubTotalRedondear, valorICERedondear, valorTotalRedondear };
 		return valores;
+	}
+
+	@Override
+	public List<ReservaDTO> reporteReservas(LocalDate fechaInicio, LocalDate fechaFin) {
+		return this.iReservaRepository.seleccionarListaPorFechas(fechaInicio, fechaFin);
+	}
+
+	@Override
+	public List<ClienteVipDTO> reporteClientesVIP() {
+		return this.iReservaRepository.seleccionarListaClientesVIPOrdenados();
+	}
+
+	@Override
+	public List<VehiculoVipDTO> reporteVehiculosVIP(int mesSeleccionado, int anioSeleccionado) {
+		return this.iReservaRepository.seleccionarListaVehiculosMesAnio(mesSeleccionado, anioSeleccionado);
 	}
 }
