@@ -62,7 +62,7 @@
 
 	<div class="formulario">
 		<div>Reporte Reservas</div>
-		<form th:action="@{/reservas/reporteReserva}" method="post">
+		<form th:action="@{/reservas/reporteReserva}" method="get">
 			<label>Fecha Inicio:</label>
 			<td><input type="date" id="fechaInicio" name="fechaInicio" required></td>
 			<label>Fecha Fin:</label>
@@ -84,7 +84,7 @@
 
 			<div class="formulario">
 				<div>Reporte Vehiculos VIP</div>
-				<form th:action="@{/reservas/reporteVehiculosVip}" method="post">
+				<form th:action="@{/reservas/reporteVehiculosVip}" method="get">
 					<label>Mes:</label>
 					<td>
 						<select id="mesSeleccionado" name="mesSeleccionado" required>

@@ -60,7 +60,7 @@ public class ReservaController {
 		this.iReservaService.reservarVehiculo(placa, cedula, fechaInicio, fechaFin, tarjetaCredito);
 	    return "redirect:/paginas/cliente";
 	}
-	@PostMapping("/reporteReserva")
+	@GetMapping("/reporteReserva")
 	public String reporteReservas(@RequestParam("fechaInicio")LocalDate fechaInicio,
 			@RequestParam("fechaFin") LocalDate fechaFin, Model modelo) {
 		List<ReservaDTO> lista= this.iReservaService.reporteReservas(fechaInicio, fechaFin);
@@ -73,7 +73,7 @@ public class ReservaController {
 		modelo.addAttribute("clientesVipDTO",lista);
 		return "vistaListaClientesVip";
 	}
-	@PostMapping("/reporteVehiculosVip")
+	@GetMapping("/reporteVehiculosVip")
 	public String reporteVehiculosVip(@RequestParam("mesSeleccionado") int mesSeleccionado,
 	        @RequestParam("anioSeleccionado") int anioSeleccionado, Model modelo) {
 	    List<VehiculoVipDTO> lista = this.iReservaService.reporteVehiculosVIP(mesSeleccionado, anioSeleccionado);
