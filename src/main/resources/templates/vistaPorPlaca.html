@@ -26,7 +26,7 @@
 
         <table class="table">
             <thead>
-                <tr> <!--lrepresentar una fila -->
+                <tr> 
                     <th>Placa</th>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -46,6 +46,7 @@
                 <td th:text="${vehiculo.estado}"></td>
                 <td th:text="${vehiculo.valorPorDia}"></td>
                 <td th:text="${vehiculo.estadoReserva}"></td>
+                <!--para crear el acordeon  -->
                 <td>
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
