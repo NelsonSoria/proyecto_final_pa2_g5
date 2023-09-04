@@ -43,24 +43,28 @@ public class VehiculoServiceImpl implements IVehiculoService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public List<Vehiculo> buscarPorMarcaModelo(String marca, String modelo) {
 		// TODO Auto-generated method stub
 		return this.iVehiculoRepository.seleccionarPorMarcaModelo(marca, modelo);
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public Vehiculo buscarPorPlaca(String placa) {
 		// TODO Auto-generated method stub
 		return this.iVehiculoRepository.seleccionarPorPlaca(placa);
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public VehiculoDTO buscarDto(String noReserva) {
 		// TODO Auto-generated method stub
 		return this.iVehiculoRepository.seleccionarDTO(noReserva);
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public List<Vehiculo> buscarDisponibles() {
 		// TODO Auto-generated method stub
 		return this.iVehiculoRepository.seleccionarDisponibles();

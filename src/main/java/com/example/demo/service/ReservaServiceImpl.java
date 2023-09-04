@@ -98,6 +98,7 @@ public class ReservaServiceImpl implements IReservaService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public Reserva cambiarEstadoReserva(String numeroReserva) {
 		// TODO Auto-generated method stub
 		Reserva r =this.iReservaRepository.seleccionarPorNoReserva(numeroReserva);
@@ -120,6 +121,7 @@ public class ReservaServiceImpl implements IReservaService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public LocalDate obtenerFechaDisponible(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
 		List<Reserva> reservas = this.iReservaRepository.seleccionarListaPorPlacaV(placa);
 		LocalDate fechaDisponible = LocalDate.now();
@@ -137,6 +139,7 @@ public class ReservaServiceImpl implements IReservaService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public BigDecimal valorTotalAPagar(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
 
 		BigDecimal[] valores = calcularValores(placa, fechaInicio, fechaFin);

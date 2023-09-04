@@ -8,27 +8,51 @@ public class VehiculoDTO {
 
 	private String placa;
 	private String modelo;
+	private String marca;
 	private String cedulaCliente;
 	private String estado;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
 	private String noReserva;
+	private BigDecimal valorPorDia;
 	
 	public VehiculoDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
 
-	public VehiculoDTO(String placa, String modelo, String cedulaCliente, String estado,
-			LocalDate fechaFin, LocalDate fechaInicio, String noReserva) {
+	public VehiculoDTO(String placa, String modelo, String cedulaCliente, String estado,String marca,
+			LocalDate fechaFin, LocalDate fechaInicio, String noReserva,BigDecimal valorPorDia) {
 		super();
 		this.placa = placa;
 		this.modelo = modelo;
+		this.marca =marca;
 		this.cedulaCliente=cedulaCliente;
 		this.estado = estado;
 		this.fechaFin =fechaFin;
 		this.fechaInicio = fechaInicio;
 		this.noReserva =noReserva;
+		this.valorPorDia = valorPorDia;
+	}
+
+
+	public String getMarca() {
+		return marca;
+	}
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+
+	public BigDecimal getValorPorDia() {
+		return valorPorDia;
+	}
+
+
+	public void setValorPorDia(BigDecimal valorPorDia) {
+		this.valorPorDia = valorPorDia;
 	}
 
 

@@ -2,8 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +30,7 @@ public class VehiculoController {
     @Autowired
     private IReservaService iReservaService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(VehiculoController.class);
+    private static final Logger LOG = Logger.getLogger(ReservaController.class);
   
     
     //http://localhost:8080/concesionario/vehiculos/buscarPorPlaca/?
@@ -40,13 +39,15 @@ public class VehiculoController {
         Vehiculo buscado = this.iVehiculoService.buscarPorPlaca(placa);
        
         modelo.addAttribute("vehiculo",buscado);
-      
+        LOG.info("Direcciona a la vista vistaPorPlaca a partir de una placa");
+    
         return "vistaPorPlaca";
     }
     @GetMapping("/buscarPorReserva")
     public String buscarPorReserva(@RequestParam("noReserva") String noReserva,Model modelo){
         VehiculoDTO vDto= this.iVehiculoService.buscarDto(noReserva);
         modelo.addAttribute("vehiculoDTO", vDto);
+        LOG.info("Direcciona a la vistaPorReserva a partir de numero de reserva");
        
         return "vistaPorReserva";
     }
@@ -55,6 +56,8 @@ public class VehiculoController {
     public String buscarDisponibles(Model modelo){
         List<Vehiculo> disponibles = this.iVehiculoService.buscarDisponibles();
         modelo.addAttribute("vehiculos", disponibles);
+        LOG.info("Direcciona a la vistaVehiculosDisponibles, envia una Lista de Vehiculos");
+        
         return "vistaVehiculosDisponibles";
     }
     //http://localhost:8080/concesionario/vehiculos/buscar
@@ -64,9 +67,21 @@ public class VehiculoController {
                                   Model model) {
         List<Vehiculo> vehiculosFiltrados = this.iVehiculoService.buscarPorMarcaModelo(marca, modelo); 
         model.addAttribute("vehiculos", vehiculosFiltrados);
-        
+        LOG.info("Direcciona a la vistaListaVehiculos a partir de marca y modelo de vehiculo");
+       
         return "vistaListaVehiculos";
     }
+    @GetMapping("/buscarSinReserva")
+    public String buscarVehiculosSinReserva(@RequestParam("marca") String marca,
+                                  @RequestParam("modelo") String modelo,
+                                  Model model) {
+        List<Vehiculo> vehiculosFiltrados = this.iVehiculoService.buscarPorMarcaModelo(marca, modelo); 
+        model.addAttribute("vehiculos", vehiculosFiltrados);
+        LOG.info("Busca los vehiculos sin reserva a partir de marca y modelo");
+        
+        return "vistaVehiculosDisponibles";
+    }
+
     @PutMapping("/retirar/{noReserva}")
     public String retirarReservado(@PathVariable("noReserva") String numeroReserva,Model modelo){
         Reserva r = this.iReservaService.buscarPorReserva(numeroReserva); 
@@ -75,21 +90,23 @@ public class VehiculoController {
         v.setEstado("I");
         this.iVehiculoService.actualizar(v);
         this.iReservaService.actualizar(r);
+        LOG.info("Cambia el estado de reserva y el estado de vehiculo");
+        
         return "success.html";
     }
     @PostMapping("/registrar")
 	public String registrarCliente(Vehiculo vehiculo) {
 		try {
 			this.iVehiculoService.guardar(vehiculo);
+            LOG.info("Redirecciona a /paginas/empleado luego de registrar un Cliente");
+        
 			return "redirect:/paginas/empleado";
 		} catch (Exception e) {
+         
+            LOG.error("Redirecciona a /vehiculos/registroVehiculo registro de Cliente fallida");
+    
 			return "redirect:/vehiculos/registroVehiculo";
 		}
 	}
 	
-	@GetMapping("/registroVehiculo")
-	public String registo(Vehiculo vehiculo, Model modelo) {
-		modelo.addAttribute("vehiculo", vehiculo);
-		return "vistaVehiculoNuevo";
-	}
 }

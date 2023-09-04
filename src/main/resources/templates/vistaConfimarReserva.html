@@ -17,11 +17,11 @@
 
 
 <body>
-	<div style="text-align: center; background-color: rgb(0, 128, 255); color: white; padding: 10px;; font-size: 20px;">AVISO</div>
+	<div style="text-align: center; background-color: rgb(50, 185, 234); color: white; padding: 10px;; font-size: 20px;">AVISO</div>
 	<p><strong>¡Tu reserva se ha realizado con éxito!</strong></p>
 	<p>Número de Reserva: <span th:text="${numeroReserva}"></span></p>
 	
-	<form action="#" th:action="@{/paginas/cliente}" th:method="GET">
+	<form action="javascript:history.go(-2);" method="GET">
 		<input class="btn btn-dark" type="submit" value="Volver">
 	</form>
 

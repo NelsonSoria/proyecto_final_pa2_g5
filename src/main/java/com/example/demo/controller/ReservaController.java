@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.repository.modelo.Reserva;
+import com.example.demo.repository.modelo.Vehiculo;
 import com.example.demo.service.IReservaService;
+import com.example.demo.service.IVehiculoService;
 import com.example.demo.repository.modelo.dto.ClienteVipDTO;
 import com.example.demo.repository.modelo.dto.ReservaDTO;
 import com.example.demo.repository.modelo.dto.VehiculoVipDTO;
@@ -21,17 +24,25 @@ import com.example.demo.repository.modelo.dto.VehiculoVipDTO;
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
-    
-    @Autowired
-    private IReservaService iReservaService;
 
-    @RequestMapping("/reservar")
-	public String reservar(@RequestParam("numeroReserva") String numeroReserva, Model modelo){
-        Reserva r=this.iReservaService.cambiarEstadoReserva(numeroReserva);
-        modelo.addAttribute("reserva", r);
-        return"redirect:../vehiculos/buscarPorPlaca";
-    }
-    @PostMapping("/guardar")
+	@Autowired
+	private IReservaService iReservaService;
+	@Autowired
+	IVehiculoService iVehiculoService;
+
+	private boolean disponibilidad;
+	private static final Logger LOG = Logger.getLogger(ReservaController.class);
+
+	@RequestMapping("/reservar")
+	public String reservar(@RequestParam("numeroReserva") String numeroReserva, Model modelo) {
+		Reserva r = this.iReservaService.cambiarEstadoReserva(numeroReserva);
+		modelo.addAttribute("reserva", r);
+		LOG.info("Cambia el estado de la reserva a partir de un numero de Reserva y el estado del vehiculo");
+
+		return "redirect:../vehiculos/buscarPorPlaca";
+	}
+
+	@PostMapping("/guardar")
 	public String reservarVehiculo(@RequestParam("placa") String placa, @RequestParam("cedula") String cedula,
 			@RequestParam("fechaInicio") LocalDate fechaInicio, @RequestParam("fechaFin") LocalDate fechaFin,
 			Model model) {
@@ -45,6 +56,7 @@ public class ReservaController {
 			model.addAttribute("cedula", cedula);
 			model.addAttribute("fechaInicio", fechaInicio);
 			model.addAttribute("fechaFin", fechaFin);
+			LOG.info("Direcciona a la vistaRegistrarReserva, disponibilidad es true");
 
 			aux = "vistaRegistrarReserva";
 		} else {
@@ -52,6 +64,8 @@ public class ReservaController {
 			model.addAttribute("fecha_inicio_seleccionada", fechaInicio.toString());
 			model.addAttribute("fecha_fin_seleccionada", fechaFin.toString());
 			model.addAttribute("fecha_disponible", fechaDisponible.toString());
+			LOG.info("Direcciona a la vistaVehiculoIndisponible, disponibilidad es false");
+
 			aux = "vistaVehiculoIndisponible";
 		}
 		return aux;
@@ -61,10 +75,11 @@ public class ReservaController {
 	public String registrarReserva(@RequestParam("placa") String placa, @RequestParam("cedula") String cedula,
 			@RequestParam("fechaInicio") LocalDate fechaInicio, @RequestParam("fechaFin") LocalDate fechaFin,
 			@RequestParam("tarjetaCredito") String tarjetaCredito, Model model) {
-		String numeroReserva =  this.iReservaService.reservarVehiculo(placa, cedula, fechaInicio, fechaFin,
-		 tarjetaCredito);
+		String numeroReserva = this.iReservaService.reservarVehiculo(placa, cedula, fechaInicio, fechaFin,
+				tarjetaCredito);
 		model.addAttribute("numeroReserva", numeroReserva);
-		
+		LOG.info("Registra la reserva a partir de placa,cedula,fecha inicio,fecha fin y tarjeta Credito");
+
 		return "vistaConfimarReserva";
 
 	}
@@ -74,6 +89,8 @@ public class ReservaController {
 			@RequestParam("fechaFin") LocalDate fechaFin, Model modelo) {
 		List<ReservaDTO> lista = this.iReservaService.reporteReservas(fechaInicio, fechaFin);
 		modelo.addAttribute("reservasDTO", lista);
+		LOG.info("Direcciona a la vistaListaReservas a partir de fecha inicio, fecha fin");
+
 		return "vistaListaReservas";
 	}
 
@@ -81,6 +98,8 @@ public class ReservaController {
 	public String reporteClientesVip(Model modelo) {
 		List<ClienteVipDTO> lista = this.iReservaService.reporteClientesVIP();
 		modelo.addAttribute("clientesVipDTO", lista);
+		LOG.info("Direcciona a la vistaListaClientesVip a partir de una Lista de ClienteVipDTO");
+
 		return "vistaListaClientesVip";
 	}
 
@@ -89,6 +108,8 @@ public class ReservaController {
 			@RequestParam("anioSeleccionado") int anioSeleccionado, Model modelo) {
 		List<VehiculoVipDTO> lista = this.iReservaService.reporteVehiculosVIP(mesSeleccionado, anioSeleccionado);
 		modelo.addAttribute("vehiculosVipDTO", lista);
+		LOG.info("Direcciona a la vistaListaVehiculosVip a partir de mes seleccionado y anio seleccionado");
+		
 		return "vistaListaVehiculosVip";
 	}
 }

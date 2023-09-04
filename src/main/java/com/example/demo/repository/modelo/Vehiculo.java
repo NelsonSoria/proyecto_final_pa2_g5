@@ -41,8 +41,7 @@ public class Vehiculo {
 	@Column(name = "vhcl_valor_por_dia")
 	private BigDecimal valorPorDia;
 	@Column(name = "vhcl_estado")
-	private String estado;
-	
+	private String estado="D";
 	
 	@OneToMany(mappedBy = "vehiculo",fetch = FetchType.LAZY)
 	private List<Reserva> resevas;

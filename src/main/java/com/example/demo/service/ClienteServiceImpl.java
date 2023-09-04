@@ -20,18 +20,21 @@ public class ClienteServiceImpl implements IClienteService{
 	
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public Cliente buscarPorId(Integer id) {
 		// TODO Auto-generated method stub
 		return this.clienteRepository.seleccionarPorId(id);
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void actualizar(Cliente cliente) {
 		this.clienteRepository.actualizar(cliente);
 		
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public void borrar(Integer id) {
 		this.clienteRepository.eliminar(id);
 		
@@ -54,6 +57,7 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public List<Cliente> buscarTodos() {
 		// TODO Auto-generated method stub
 		return this.clienteRepository.seleccionarTodos();

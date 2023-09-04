@@ -16,16 +16,22 @@
 <!--lo que va a contener mi pagina web visualmente -->
 
 <body>
-		<div style="text-align: center; background-color: rgb(255, 0, 0); color: white; padding: 10px;; font-size: 20px;">El vehículo no está disponible en las fechas seleccionadas.</div>
-	
+	<div style="text-align: center; background-color: rgb(255, 0, 0); color: white; padding: 10px;; font-size: 20px;">El
+		vehículo no está disponible en las fechas seleccionadas.</div>
+
 	<div>
-		<p >Fecha de inicio seleccionada: <span th:text="${fecha_inicio_seleccionada}" class="text-danger font-weight-bold"></span></p>
-		<p >Fecha de fin seleccionada: <span th:text="${fecha_fin_seleccionada}" class="text-danger font-weight-bold"></p>
-		<p >El vehículo estará disponible a partir de: <span th:text="${fecha_disponible}" class="text-danger font-weight-bold"></p>
+		<p>Fecha de inicio seleccionada: <span th:text="${fecha_inicio_seleccionada}"
+				class="text-danger font-weight-bold"></span></p>
+		<p>Fecha de fin seleccionada: <span th:text="${fecha_fin_seleccionada}" class="text-danger font-weight-bold">
+		</p>
+		<p>El vehículo estará disponible a partir de: <span th:text="${fecha_disponible}"
+				class="text-danger font-weight-bold"></p>
 	</div>
 
 	<!-- Botón para regresar -->
-	<form action="#" th:action="@{/paginas/cliente}" th:method="GET">
+	<form action="javascript:history.go(-1);" method="GET">
+
+
 		<input class="btn btn-dark" type="submit" value="Volver">
 	</form>
 

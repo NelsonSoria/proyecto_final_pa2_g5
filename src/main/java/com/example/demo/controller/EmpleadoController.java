@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ import com.example.demo.service.IClienteService;
 public class EmpleadoController {
     @Autowired
     private IClienteService clienteService;
+
+    private static final Logger LOG = Logger.getLogger(ReservaController.class);
     //http://localhost:8080/concesionario/empleados/principal
     @GetMapping("/principal")
 	public String principal(Cliente cliente,Vehiculo vehiculo, Model modelo) {
@@ -27,16 +30,22 @@ public class EmpleadoController {
 		modelo.addAttribute("clientes", lista);
         modelo.addAttribute("cliente", cliente);
         modelo.addAttribute("vehiculo", vehiculo);
+        LOG.info("Direcciona a VistaEmpleadoPrincipal");
+        
 		return "vistaEmpleadoPrincipal";
 	}
 
     @PostMapping("/registrar")
     public String registrarCliente(Cliente cliente){
         try {
-					
+			LOG.info("Registra un Cliente como Empleado");
+        
 			this.clienteService.guardarEmpleado(cliente);
 			return "redirect:/empleados/principal";
 		} catch (Exception e) {
+         
+            LOG.error("No Registro al Cliente como Empleado");
+        
 			return "redirect:../paginas/principal";
 		}
     }
@@ -45,6 +54,8 @@ public class EmpleadoController {
     public String detalle(@PathVariable("idCliente") Integer id, Model modelo){
         Cliente cliente = this.clienteService.buscarPorId(id);
         modelo.addAttribute("cliente",cliente);
+        LOG.info("Direcciona a la vistaEmpleadoDetalle");
+        
         return "vistaEmpleadoDetalle";
     }
 }

@@ -75,6 +75,8 @@ public class VehiculoRepositoryImpl implements IVehiculoRepository{
 		vd.setModelo(v.getModelo());
 		vd.setPlaca(v.getPlaca());
 		vd.setNoReserva(noReserva);
+		vd.setMarca(v.getMarca());
+		vd.setValorPorDia(v.getValorPorDia());
 		return vd;
 	}
 
