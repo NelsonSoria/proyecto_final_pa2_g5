@@ -21,40 +21,32 @@
 <!--lo que va a contener mi pagina web visualmente -->
 
 <body>
-    <form th:object="${vehiculo}">
-        <h1>Vehiculo con Placa <b th:text="${vehiculo.placa}"></b></h1>
+    
+        <h1>Vehiculos</h1>
 
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Placa</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Anio Fabricacion</th>
-                    <th>Pais Fabricacion</th>
-                    <th>Cilindraje</th>
-                    <th>Avaluo</th>
-                    <th>Estado</th>
-                    <th>Valor Por Dia</th>
-                    
-                    
-                </tr>
-            </thead>
-            <hbody>
-
+		<thead>
+			<tr> <!--lrepresentar una fila -->
+				<th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Anio</th>
+                <th>Estado</th>
+                <th>Valor Por Dia</th>
+			</tr>
+		</thead>
+		<hbody>
+			<tr th:each="vehiculo: ${vehiculos}">
                 <td th:text="${vehiculo.placa}"></td>
                 <td th:text="${vehiculo.marca}"></td>
                 <td th:text="${vehiculo.modelo}"></td>
                 <td th:text="${vehiculo.anioFabricacion}"></td>
-                <td th:text="${vehiculo.paisFabricacion}"></td>
-                <td th:text="${vehiculo.cilindraje}"></td>
-                <td th:text="${vehiculo.avaluo}"></td>
                 <td th:text="${vehiculo.estado}"></td>
                 <td th:text="${vehiculo.valorPorDia}"></td>
-                
-            </hbody>
-        </table>
-    </form>
+            </tr>
+		</hbody>
+	</table>
+   
 
 </body>
 

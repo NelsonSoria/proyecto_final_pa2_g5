@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
+import com.example.demo.service.dto.VehiculoDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -56,6 +58,29 @@ public class VehiculoRepositoryImpl implements IVehiculoRepository{
 		query.setParameter("DatoMarca", marca);
 		query.setParameter("DatoModelo", modelo);
 		return  query.getResultList();
+	}
+
+	@Override
+	public VehiculoDTO seleccionarDTO(String noReserva) {
+		TypedQuery<Reserva> query= this.entityManager.createQuery("Select r From Reserva r Where r.numeroReserva=:DatoReserva",Reserva.class);
+		query.setParameter("DatoReserva", noReserva);
+		Reserva r =query.getSingleResult();
+		Vehiculo v = r.getVehiculo();
+		VehiculoDTO vd= new VehiculoDTO();
+		vd.setCedulaCliente(r.getCliente().getCedula());
+		vd.setEstado(v.getEstado());
+		vd.setFechaInicio(r.getFechaInicio());
+		vd.setFechaFin(r.getFechaFin());
+		vd.setModelo(v.getModelo());
+		vd.setPlaca(v.getPlaca());
+		vd.setNoReserva(noReserva);
+		return vd;
+	}
+
+	@Override
+	public List<Vehiculo> seleccionarDisponibles() {
+		TypedQuery<Vehiculo> query= this.entityManager.createQuery("Select v From Vehiculo v Where v.estado='D'",Vehiculo.class);
+		return query.getResultList();
 	}
 
 }

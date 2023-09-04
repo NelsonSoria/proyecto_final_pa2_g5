@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.repository.modelo.Cliente;
-
+import com.example.demo.repository.modelo.Vehiculo;
 import com.example.demo.service.IClienteService;
 
 @Controller
@@ -22,24 +22,19 @@ public class EmpleadoController {
     private IClienteService clienteService;
     //http://localhost:8080/concesionario/empleados/principal
     @GetMapping("/principal")
-	public String principal(Cliente cliente, Model modelo) {
+	public String principal(Cliente cliente,Vehiculo vehiculo, Model modelo) {
         List<Cliente> lista = this.clienteService.buscarTodos();
 		modelo.addAttribute("clientes", lista);
         modelo.addAttribute("cliente", cliente);
+        modelo.addAttribute("vehiculo", vehiculo);
 		return "vistaEmpleadoPrincipal";
 	}
 
     @PostMapping("/registrar")
     public String registrarCliente(Cliente cliente){
         try {
-			Cliente c = new Cliente();
-			c.setCedula(cliente.getCedula());
-			c.setNombre(cliente.getNombre());
-			c.setApellido(cliente.getApellido());
-			c.setFechaNacimiento(cliente.getFechaNacimiento());
-			c.setGenero(cliente.getGenero());
-			
-			this.clienteService.guardarEmpleado(c);
+					
+			this.clienteService.guardarEmpleado(cliente);
 			return "redirect:/empleados/principal";
 		} catch (Exception e) {
 			return "redirect:../paginas/principal";

@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,10 +42,9 @@ public class Vehiculo {
 	private BigDecimal valorPorDia;
 	@Column(name = "vhcl_estado")
 	private String estado;
-	@Column(name = "vhcl_estado_reserva")
-	private String estadoReserva;
 	
-	@OneToMany(mappedBy = "vehiculo")
+	
+	@OneToMany(mappedBy = "vehiculo",fetch = FetchType.LAZY)
 	private List<Reserva> resevas;
 	//SET Y GET
 
@@ -131,13 +131,7 @@ public class Vehiculo {
 	public List<Reserva> getResevas() {
 		return resevas;
 	}
-	public String getEstadoReserva(){
-		return this.estadoReserva;
-	}
-	public void setEstadoReserva(String estadoReserva){
-		this.estadoReserva =estadoReserva;
-	}
-
+	
 	public void setResevas(List<Reserva> resevas) {
 		this.resevas = resevas;
 	}

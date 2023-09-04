@@ -10,5 +10,7 @@ public interface IReservaRepository {
 	public void actualizar(Reserva reserva);
 	public void eliminar(Integer id);
 	public List<Reserva> seleccionarListaPorPlacaV(String placa);
+    public Reserva seleccionarPorNoReserva(String numeroReserva);
+	
 	
 }

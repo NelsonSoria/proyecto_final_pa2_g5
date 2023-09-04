@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.IVehiculoRepository;
 import com.example.demo.repository.modelo.Vehiculo;
+import com.example.demo.service.dto.VehiculoDTO;
 
 import jakarta.transaction.Transactional;
 import jakarta.transaction.Transactional.TxType;
@@ -51,6 +52,18 @@ public class VehiculoServiceImpl implements IVehiculoService{
 	public Vehiculo buscarPorPlaca(String placa) {
 		// TODO Auto-generated method stub
 		return this.iVehiculoRepository.seleccionarPorPlaca(placa);
+	}
+
+	@Override
+	public VehiculoDTO buscarDto(String noReserva) {
+		// TODO Auto-generated method stub
+		return this.iVehiculoRepository.seleccionarDTO(noReserva);
+	}
+
+	@Override
+	public List<Vehiculo> buscarDisponibles() {
+		// TODO Auto-generated method stub
+		return this.iVehiculoRepository.seleccionarDisponibles();
 	}
 
 }

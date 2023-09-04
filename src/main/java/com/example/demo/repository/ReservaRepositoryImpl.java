@@ -56,4 +56,11 @@ public class ReservaRepositoryImpl implements IReservaRepository{
 		return query.getResultList();
 	}
 
+	@Override
+	public Reserva seleccionarPorNoReserva(String numeroReserva) {
+		TypedQuery<Reserva> query= this.entityManager.createQuery("Select r From Reserva r Where r.numeroReserva=:DatoNumero",Reserva.class);
+		query.setParameter("DatoNumero", numeroReserva);
+		return query.getSingleResult();
+	}
+
 }

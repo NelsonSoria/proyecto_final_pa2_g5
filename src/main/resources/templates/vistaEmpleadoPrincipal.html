@@ -25,9 +25,13 @@
             aria-expanded="false" aria-controls="multiCollapseExample1">
             Registrar
         </a>
+        
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
             aria-expanded="false" aria-controls="multiCollapseExample2">
-            Buscar
+            Buscar por Placa
+        </button>
+        <button class="btn btn-primary" type="button" th:action="@{/vehiculos/buscarPorReserva}">
+            Buscar Vehiculos Disponibles
         </button>
     </p>
     <div class="row">
@@ -65,35 +69,43 @@
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample2">
                 <div class="card card-body">
-                    <table class="table">
-                        <thead>
-                            <tr> <!--lrepresentar una fila -->
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Detalle</th>
-
-                            </tr>
-                        </thead>
-                        <hbody>
-                            <tr th:each="cli: ${clientes}">
-                                <td th:text="${cli.id}"></td>
-                                <td th:text="${cli.nombre}"></td>
-                                <td>
-                                    <form th:action="@{/empleados/detalle/{id}(id=${cli.id})}" th:method="GET">
-                                        <input class="btn btn-dark" type="submit" value="Detail">
-                                    </form>
-                                </td>
-                            </tr>
-                        </hbody>
-                    </table>
+                    <form th:action="@{/vehiculos/buscarPorPlaca}" method="get">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Placa Vehiculo</label>
+                            <input type="text" class="form-control" id="placa" name="placa" aria-describedby="emailHelp"
+                                required>
+                            <div id="emailHelp" class="form-text">Ingrese la placa del vehiculo a buscar</div>
+                            <input class="btn btn-dark" type="submit" value="Buscar">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <p class="d-inline-flex gap-1">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample4" role="button"
+            aria-expanded="false" aria-controls="multiCollapseExample1">
+            Retirar Reservado
+        </a>
+    </p>
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample4">
+                <div class="card card-body">
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
 
+                        <form th:action="@{/vehiculos/buscarPorReserva}" method="get">
+                            <input type="text" class="form-control" placeholder="Numero Reserva" name="noReserva"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                            <div id="emailHelp" class="form-text">Ingrese el numero de reserva</div>
+                            <input class="btn btn-dark" type="submit" value="Buscar">
+                        </form>
 
-   
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
