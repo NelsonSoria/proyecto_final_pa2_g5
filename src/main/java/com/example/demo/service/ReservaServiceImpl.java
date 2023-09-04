@@ -37,7 +37,7 @@ public class ReservaServiceImpl implements IReservaService {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public void reservarVehiculo(String placa, String cedula, LocalDate fechaInicio, LocalDate fechaFin,
+	public String reservarVehiculo(String placa, String cedula, LocalDate fechaInicio, LocalDate fechaFin,
 			String numeroTarjeta) {
 
 		BigDecimal[] valores = calcularValores(placa, fechaInicio, fechaFin);
@@ -46,7 +46,7 @@ public class ReservaServiceImpl implements IReservaService {
 
 		Reserva reserva = new Reserva();
 		Random rand = new Random();
-		int randomNumero = rand.nextInt(1000) + 1;
+		int randomNumero = rand.nextInt(100000) + 1;
 
 		reserva.setNumeroReserva(Integer.toString(randomNumero));
 		reserva.setFechaInicio(fechaInicio);
@@ -61,15 +61,14 @@ public class ReservaServiceImpl implements IReservaService {
 		reserva.setVehiculo(vehiculo);
 
 		this.iReservaRepository.insertar(reserva);
+		return Integer.toString(randomNumero);
 	}
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
 	public boolean verificarDisponibilidad(String placa, LocalDate fechaInicio, LocalDate fechaFin) {
 		boolean aux = false;
-
 		List<Reserva> lista = this.iReservaRepository.seleccionarListaPorPlacaV(placa);
-		System.out.println(lista.size());
 		if (lista.size() != 0) {
 			for (Reserva r : lista) {
 				LocalDate fechaInicioRango1 = r.getFechaInicio();

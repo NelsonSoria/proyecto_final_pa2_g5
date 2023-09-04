@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<!--lenguaje en ingles -->
 <html lang="en">
-	<!-- en head se configura la metadata(datos que no ve el usuario) -->
+
 <head>
-	
-    <meta charset="UTF-8">
-    <!--para decir que es una pagina web responsiva -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--titulo a nivel de pestaña -->
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<!--lo que va a contener mi pagina web visualmente -->
+
 <body>
-    <h1>hola Mundo empleado</h1>
+	<h1 class="text-center">Modal</h1>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#contenedor-modal">Abrir Modal</button>
+
+	<div class="modal fade" id="contenedor-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">Título del modal</h2>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse laboriosam pariatur, enim corporis
+						necessitatibus veniam soluta consectetur. Fugiat accusantium quidem amet minus illum, iure
+						corporis
+						soluta laudantium sit, delectus iste!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<form action="#" th:action="@{/paginas/principal}" th:method="GET">
+						<button id="registrarse-btn" th:text="Volver">Volver</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

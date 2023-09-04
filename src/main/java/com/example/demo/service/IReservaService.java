@@ -11,7 +11,7 @@ import com.example.demo.repository.modelo.dto.VehiculoVipDTO;
 
 public interface IReservaService {
 	
-	public void reservarVehiculo(String placa,String cedula,LocalDate fechaInicio,LocalDate fechaFin,String numeroTarjeta);
+	public String reservarVehiculo(String placa,String cedula,LocalDate fechaInicio,LocalDate fechaFin,String numeroTarjeta);
 	public boolean verificarDisponibilidad(String placa,LocalDate fechaInicio,LocalDate fechaFin);
 	public LocalDate obtenerFechaDisponible(String placa, LocalDate fechaInicio, LocalDate fechaFin);
 	public BigDecimal valorTotalAPagar(String placa, LocalDate fechaInicio, LocalDate fechaFin);
