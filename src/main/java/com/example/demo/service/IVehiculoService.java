@@ -3,7 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Vehiculo;
-import com.example.demo.service.dto.VehiculoDTO;
+import com.example.demo.repository.modelo.dto.VehiculoDTO;
 
 public interface IVehiculoService {
 	public void guardar(Vehiculo vehiculo);

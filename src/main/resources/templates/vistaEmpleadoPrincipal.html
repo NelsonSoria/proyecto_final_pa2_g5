@@ -25,14 +25,18 @@
             aria-expanded="false" aria-controls="multiCollapseExample1">
             Registrar
         </a>
-        
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
-            aria-expanded="false" aria-controls="multiCollapseExample2">
-            Buscar por Placa
-        </button>
-        <button class="btn btn-primary" type="button" th:action="@{/vehiculos/buscarPorReserva}">
-            Buscar Vehiculos Disponibles
-        </button>
+    <form th:action="@{/vehiculos/registroVehiculo}" th:method="GET">
+        <button type="submit" class="btn btn-primary" id="liveAlertBtn">Ingresar Vehiculo</button>
+
+    </form>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2"
+        aria-expanded="false" aria-controls="multiCollapseExample2">
+        Buscar por Placa
+    </button>
+    <form th:action="@{/vehiculos/disponibles}" th:method="GET">
+        <button type="submit" class="btn btn-primary" id="liveAlertBtn">Retirar Sin Reserva</button>
+
+    </form>
     </p>
     <div class="row">
         <div class="col">

@@ -4,7 +4,7 @@ package com.example.demo.repository;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Vehiculo;
-import com.example.demo.service.dto.VehiculoDTO;
+import com.example.demo.repository.modelo.dto.VehiculoDTO;
 
 
 public interface IVehiculoRepository {

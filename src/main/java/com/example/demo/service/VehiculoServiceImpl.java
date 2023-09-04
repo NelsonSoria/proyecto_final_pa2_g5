@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.IVehiculoRepository;
 import com.example.demo.repository.modelo.Vehiculo;
-import com.example.demo.service.dto.VehiculoDTO;
+import com.example.demo.repository.modelo.dto.VehiculoDTO;
 
 import jakarta.transaction.Transactional;
 import jakarta.transaction.Transactional.TxType;

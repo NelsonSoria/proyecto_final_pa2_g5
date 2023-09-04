@@ -5,19 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Página de Registro</title>
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #333;
     color: white;
-    padding: 10px 20px;
+    padding: 2px 50px; 
   }
   #registrarse-btn {
     background-color: #66bb6a;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -56,15 +61,15 @@
   </header>
     <div class="formulario">
 	  <div>Reservar</div>
-      <form th:action="@{/reservar}" method="post">
-		<label>Cedula:</label>
-        <input type="text" name="cedula">
-        <label>Placa:</label>
-        <input type="text"  name="placa">
+      <form th:action="@{/reservas/guardar}" method="post">
+		<label>Placa:</label>
+        <td><input type="text" id="placa" name="placa" required></td>
+        <label>Cedula:</label>
+       <td><input type="text" id="cedula" name="cedula" required></td>
         <label>Fecha Inicio:</label>
-        <input type="text" name="anioInicio">
+        <td><input type="date" id="fechaInicio" name="fechaInicio" required></td>
         <label>Fecha Fin:</label>
-        <input type="text"  name="anioFin">
+        <td><input type="date" id="fechaFin" name="fechaFin" required></td>
          <button type="submit">Reservar</button>
       </form>
     </div>

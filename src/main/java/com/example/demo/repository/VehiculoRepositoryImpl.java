@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
-import com.example.demo.service.dto.VehiculoDTO;
+
+import com.example.demo.repository.modelo.dto.VehiculoDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

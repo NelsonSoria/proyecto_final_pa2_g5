@@ -22,14 +22,8 @@ public class ClienteController {
 	@PostMapping("/registrar")
 	public String registrarCliente(Cliente cliente) {
 		try {
-			Cliente c = new Cliente();
-			c.setCedula(cliente.getCedula());
-			c.setNombre(cliente.getNombre());
-			c.setApellido(cliente.getApellido());
-			c.setFechaNacimiento(cliente.getFechaNacimiento());
-			c.setGenero(cliente.getGenero());
 			
-			this.clienteService.guardarCliente(c);
+			this.clienteService.guardarCliente(cliente);
 			return "redirect:/paginas/cliente";
 		} catch (Exception e) {
 			return "redirect:/clientes/registroCliente";

@@ -28,6 +28,9 @@ public class Reserva {
 	
 	@Column(name="rese_fecha_inicio")
 	private LocalDate fechaInicio;
+
+	@Column(name="rese_fecha_cobro")
+	private LocalDate fechaCobro;
 	
 	@Column(name="rese_fecha_fin")
 	private LocalDate fechaFin;
@@ -141,6 +144,14 @@ public class Reserva {
 
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
+	}
+
+	public LocalDate getFechaCobro() {
+		return fechaCobro;
+	}
+
+	public void setFechaCobro(LocalDate fechaCobro) {
+		this.fechaCobro = fechaCobro;
 	}
 	
 	

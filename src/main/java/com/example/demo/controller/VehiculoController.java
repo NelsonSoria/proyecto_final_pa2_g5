@@ -18,7 +18,7 @@ import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
 import com.example.demo.service.IReservaService;
 import com.example.demo.service.IVehiculoService;
-import com.example.demo.service.dto.VehiculoDTO;
+import com.example.demo.repository.modelo.dto.VehiculoDTO;
 
 
 @Controller
@@ -32,7 +32,7 @@ public class VehiculoController {
     private IReservaService iReservaService;
 
     private static final Logger LOG = LoggerFactory.getLogger(VehiculoController.class);
-    private String numeroReserva;
+  
     
     //http://localhost:8080/concesionario/vehiculos/buscarPorPlaca/?
     @GetMapping("/buscarPorPlaca")
@@ -47,13 +47,13 @@ public class VehiculoController {
     public String buscarPorReserva(@RequestParam("noReserva") String noReserva,Model modelo){
         VehiculoDTO vDto= this.iVehiculoService.buscarDto(noReserva);
         modelo.addAttribute("vehiculoDTO", vDto);
-        this.numeroReserva =noReserva;
+       
         return "vistaPorReserva";
     }
 
     @GetMapping("/disponibles")
-    public String buscarDisponibles(List<Vehiculo> disponibles,Model modelo){
-        disponibles = this.iVehiculoService.buscarDisponibles();
+    public String buscarDisponibles(Model modelo){
+        List<Vehiculo> disponibles = this.iVehiculoService.buscarDisponibles();
         modelo.addAttribute("vehiculos", disponibles);
         return "vistaVehiculosDisponibles";
     }
@@ -77,4 +77,19 @@ public class VehiculoController {
         this.iReservaService.actualizar(r);
         return "success.html";
     }
+    @PostMapping("/registrar")
+	public String registrarCliente(Vehiculo vehiculo) {
+		try {
+			this.iVehiculoService.guardar(vehiculo);
+			return "redirect:/paginas/empleado";
+		} catch (Exception e) {
+			return "redirect:/vehiculos/registroVehiculo";
+		}
+	}
+	
+	@GetMapping("/registroVehiculo")
+	public String registo(Vehiculo vehiculo, Model modelo) {
+		modelo.addAttribute("vehiculo", vehiculo);
+		return "vistaVehiculoNuevo";
+	}
 }

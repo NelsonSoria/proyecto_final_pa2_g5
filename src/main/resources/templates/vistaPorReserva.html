@@ -47,13 +47,14 @@
             <td th:text="${vehiculoDTO.cedulaCliente}"></td>
             <td>
                 <form th:action="@{/vehiculos/retirar/{noReserva}(noReserva=${vehiculoDTO.noReserva})}" th:method="PUT">
-                    <input class="btn btn-dark" type="submit" value="Retirar">
+                    <button type="submit" class="btn btn-primary" id="liveAlertBtn">Retirar</button>
+                    
                 </form>
             </td>
-
+            
         </hbody>
     </table>
-
+    
 
 </body>
 
