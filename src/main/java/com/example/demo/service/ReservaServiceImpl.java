@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.IReservaRepository;
 import com.example.demo.repository.IVehiculoRepository;
-import com.example.demo.repository.iClienteRepository;
+import com.example.demo.repository.IClienteRepository;
 import com.example.demo.repository.modelo.Reserva;
 import com.example.demo.repository.modelo.Vehiculo;
 import com.example.demo.repository.modelo.dto.ClienteVipDTO;
@@ -29,7 +29,7 @@ import jakarta.transaction.Transactional.TxType;
 public class ReservaServiceImpl implements IReservaService{
 	
 	@Autowired
-	private iClienteRepository clienteRepository;
+	private IClienteRepository clienteRepository;
 	@Autowired
 	private IVehiculoRepository iVehiculoRepository;
 	

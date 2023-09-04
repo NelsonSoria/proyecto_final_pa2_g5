@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.demo.repository.modelo.Cliente;
 
-public interface iClienteRepository {
+public interface IClienteRepository {
 	public void insertar(Cliente cliente);
 	public Cliente seleccionarPorId(Integer id);
 	public void actualizar(Cliente cliente);

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.iClienteRepository;
+import com.example.demo.repository.IClienteRepository;
 import com.example.demo.repository.modelo.Cliente;
 
 import jakarta.transaction.Transactional;
@@ -16,7 +16,7 @@ public class ClienteServiceImpl implements IClienteService{
 
 	
 	@Autowired
-	private iClienteRepository clienteRepository;
+	private IClienteRepository clienteRepository;
 	
 
 	@Override

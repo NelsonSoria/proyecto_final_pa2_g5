@@ -108,8 +108,6 @@ public class ReservaController {
 			@RequestParam("anioSeleccionado") int anioSeleccionado, Model modelo) {
 		List<VehiculoVipDTO> lista = this.iReservaService.reporteVehiculosVIP(mesSeleccionado, anioSeleccionado);
 		modelo.addAttribute("vehiculosVipDTO", lista);
-		LOG.info("Direcciona a la vistaListaVehiculosVip a partir de mes seleccionado y anio seleccionado");
-		
 		return "vistaListaVehiculosVip";
 	}
 }

@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional.TxType;
 
 @Repository
 @Transactional
-public class ClienteRepositoryImpl implements iClienteRepository{
+public class ClienteRepositoryImpl implements IClienteRepository{
 
 	@PersistenceContext
 	private EntityManager entityManager;
